@@ -13,7 +13,10 @@
       newResolution = ''
   }
 
-  $: resolutions = useTracker(() => Resolutions.find({}).fetch())
+  $: resolutions = useTracker(() => Resolutions.find(
+    {},
+    { sort: { createdAt: -1 } }
+  ).fetch())
 </script>
 
 <header>

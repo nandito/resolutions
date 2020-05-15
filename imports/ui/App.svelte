@@ -1,6 +1,7 @@
 <script>
   import { useTracker } from 'meteor/rdb:svelte-meteor-data'
   import { Resolutions } from '../api/resolutions'
+  import Resolution from './Resolution.svelte'
 
   let newResolution = ''
 
@@ -29,7 +30,12 @@
     >
   </form>
 
-  {#each $resolutions as resolution}
-    <h2>{resolution.title}</h2>
-  {/each}
+  <ul>
+    {#each $resolutions as resolution}
+      <Resolution
+        key={resolution._id}
+        resolution={resolution}
+      />
+    {/each}
+  </ul>
 </header>

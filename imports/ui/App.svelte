@@ -1,8 +1,11 @@
 <script>
+  import { Meteor } from 'meteor/meteor'
   import { useTracker } from 'meteor/rdb:svelte-meteor-data'
+  import { BlazeTemplate } from 'meteor/svelte:blaze-integration'
   import { Resolutions } from '../api/resolutions'
   import Resolution from './Resolution.svelte'
 
+  let currentUser
   let resolutions = []
   let newResolution = ''
   let hideChecked = false
@@ -10,11 +13,16 @@
   function handleSubmit() {
     Resolutions.insert({
       title: newResolution,
-      createdAt: new Date()
+      createdAt: new Date(),
+      owner: Meteor.userId(),
+      username: Meteor.user().username
     })
 
       newResolution = ''
   }
+
+  // Get the information about the currently logged in user
+  $: currentUser = useTracker(() => Meteor.user())
 
   $: uncheckedCount = useTracker(() => Resolutions.find({ checked: {$ne: true }}).count())
 
@@ -39,13 +47,17 @@
     Hide checked resolutions
   </label>
 
-  <form on:submit|preventDefault={handleSubmit}>
-    <input
-      type="text"
-      placeholder="New resolution"
-      bind:value={newResolution}
-    >
-  </form>
+  <BlazeTemplate template="loginButtons" />
+
+  {#if $currentUser}
+    <form on:submit|preventDefault={handleSubmit}>
+      <input
+        type="text"
+        placeholder="New resolution"
+        bind:value={newResolution}
+      >
+    </form>
+  {/if}
 
   <ul>
     {#each resolutions as resolution}

@@ -23,7 +23,12 @@
     on:click={toggleChecked}
   >
 
-  <span>{resolution.title}</span>
+  <span>
+    {#if resolution.username}
+      <strong>{resolution.username}: </strong>
+    {/if}
+    {resolution.title}
+  </span>
 
   <button on:click={deleteThisResolution}>Delete</button>
 </li>

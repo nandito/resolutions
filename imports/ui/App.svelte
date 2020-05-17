@@ -11,14 +11,9 @@
   let hideChecked = false
 
   function handleSubmit() {
-    Resolutions.insert({
-      title: newResolution,
-      createdAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username
-    })
+    Meteor.call('resolutions.insert', newResolution)
 
-      newResolution = ''
+    newResolution = ''
   }
 
   // Get the information about the currently logged in user

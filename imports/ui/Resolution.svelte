@@ -4,14 +4,10 @@
   export let resolution
 
   function deleteThisResolution() {
-    Resolutions.remove(resolution._id)
+    Meteor.call('resolutions.remove', resolution._id)
   }
   function toggleChecked() {
-    Resolutions.update(resolution._id, {
-      $set: {
-        checked: !resolution.checked,
-      }
-    })
+    Meteor.call('resolutions.setChecked', resolution._id, !resolution.checked)
   }
 </script>
 

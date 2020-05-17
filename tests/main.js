@@ -1,4 +1,5 @@
 import assert from "assert";
+import '../imports/api/resolutions.test'
 
 describe("resolutions", function () {
   it("package.json has correct name", async function () {

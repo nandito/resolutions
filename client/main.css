@@ -2,3 +2,11 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.private {
+  color: #6F0000
+}
+
+.checked {
+  text-decoration: line-through;
+}

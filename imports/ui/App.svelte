@@ -2,6 +2,7 @@
   import { Meteor } from 'meteor/meteor'
   import { useTracker } from 'meteor/rdb:svelte-meteor-data'
   import { BlazeTemplate } from 'meteor/svelte:blaze-integration'
+  import { onMount } from 'svelte'
   import { Resolutions } from '../api/resolutions'
   import Resolution from './Resolution.svelte'
 
@@ -9,6 +10,10 @@
   let resolutions = []
   let newResolution = ''
   let hideChecked = false
+
+  onMount(async () => {
+    Meteor.subscribe('resolutions')
+  })
 
   function handleSubmit() {
     Meteor.call('resolutions.insert', newResolution)
